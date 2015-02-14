@@ -1,0 +1,9 @@
+extend layout
+
+block content
+  h1= title
+  p room_id: #{room_id}
+  input(type='button', value='Send Msg', id='send_btn')
+
+  script(src="/socket.io/socket.io.js")
+  script(type='text/javascript', src='/javascripts/chat.js')
