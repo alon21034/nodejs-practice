@@ -6,12 +6,17 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'alon21034' });
 })
 
-router.post('/room/*', function(req, res, next) {
-	res.render('room', { 
-		title: 'Room!', 
-		room_id: req.body.room_id
-	});
-}).get('/room/*', function(req, res, next) {
+router.get('/create', function(req, res, next) {
+	var id = Math.round((Math.random() * 1000000));
+	console.log('id:', id);
+	res.redirect('/room/'+id);
+})
+
+router.get('/join', function(req, res, next) {
+
+})
+
+router.get('/room/:id', function(req, res, next) {
 	res.render('room', {
 		title: 'Room!',
 		room_id: req.params['0']

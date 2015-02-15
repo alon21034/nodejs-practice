@@ -2,19 +2,17 @@ extends layout
 
 block content
   h1= title
-  .controls
-    input(type='button', value='Generate', id='gen_btn')
     
-  form(id='create_room_form', method='post')
-    input(type='text', name='room_id', id='room_id_text', placeholder="a")
+  form(action='/create', id='create_room_form', method='get')
     input(type='submit', value='Create', id='create_btn')
+
+  form(id='join_room_form', method='get')
+    input(type='text', name='room_id', id='room_id_text', placeholder="a")
+    input(type='submit', value='Join', id='join_btn')
 
   script(type='text/javascript').
     $(document).ready(function() {
-      $("#gen_btn").click(function() {
-        console.log("!!!");
-        var id = Math.floor(Math.random()*100+1);
-        $("#create_room_form").attr("action", "/room/"+id);
-        $("#room_id_text").val(id);
+      $("#create_btn").click(function() {
+        console.log("Create New Room");
       });
     });
