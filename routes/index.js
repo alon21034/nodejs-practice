@@ -13,13 +13,16 @@ router.get('/create', function(req, res, next) {
 })
 
 router.get('/join', function(req, res, next) {
-
+	//console.log(req);
+	var id = req.query['room_id'];
+	res.redirect('/room/'+id);
 })
 
 router.get('/room/:id', function(req, res, next) {
+	console.log(req.params['id']);
 	res.render('room', {
 		title: 'Room!',
-		room_id: req.params['0']
+		room_id: req.params['id']
 	})
 })
 
