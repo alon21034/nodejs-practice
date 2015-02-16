@@ -45,15 +45,16 @@ io.sockets.on('connection', function (socket) {
       io.sockets.emit(data.room_id, data);
     })
 
+    socket.on('start', function (data) {
+      socket.emit('start', data);
+    })
+
     // return to client side to ensure the socket is connected
     socket.on('ping', function (data) {
       socket.emit('pong', 'return');
     })
 
 });
-
-
-
 
 server.on('error', onError);
 server.on('listening', onListening);

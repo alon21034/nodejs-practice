@@ -50,21 +50,6 @@ $(function() {
     context.stroke();
   }
 
-  function animate(myRectangle, canvas, context) {
-
-  	myRectangle.x += (myRectangle.x != x_now)?(myRectangle.x > x_now)?-1:1:0;
-  	myRectangle.y += (myRectangle.y != y_now)?(myRectangle.y > y_now)?-1:1:0;
-
-    // clear
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    drawRectangle(myRectangle, context);
-  }
-
-  // animation
-  setInterval(function() {
-  	animate(myRectangle, canvas, ctx);
-  }, 100);
-
   // private message
   // update new_x, new_y, arrived_time
 	host_socket.on(id, function(data) {
@@ -74,10 +59,12 @@ $(function() {
 		var diff = (time_now - time_prev);
 		time_prev = time_now;
 
-		x_now += Math.round(diff * diff * data['x'] / 2 / 1000000);
-		y_now += Math.round(diff * diff * data['y'] / 2 / 1000000);
+		ctx.clearRect(0,0,600,400);
+		myRectangle.x = x_now = data['x'];
+		myRectangle.y = y_now = data['y'];
+		drawRectangle(myRectangle, ctx);
 
-		console.log('get private message', diff, data);
+		console.log('get private message', diff, x_now, y_now, data);
 
 	});
 });
