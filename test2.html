@@ -1,0 +1,56 @@
+<script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
+<script>
+	console.log("!!!");
+  // var socket = io('http://localhost:3000');
+  var socket = io('http://alon-puyo.herokuapp.com:80');
+
+  var id = '752553';
+
+  socket.emit('start',
+  	{message: 'this is test message', room_id: id }
+  );
+
+  socket.on('pong', function(data) {
+  	console.log('pong', data);
+  });
+
+  socket.on('start', function(data) {
+  	console.log('game start!!');
+  	time_now = time_prev = new Date().getTime();
+  	gameStart();
+  })
+
+  socket.on('stop', function(data) {
+  	console.log('game stop');
+  })
+
+  function gameStart() {
+	  setInterval(function() {
+	  	time_now = new Date().getTime();
+	  	var a = [Math.random() * 8 - 4, Math.random() * 8 - 4, 0];
+	  	var diff = time_now - time_prev;
+	  	var i;
+	  	for (i=0;i<3;i++) {
+	  		v[i] += 3 * a[i] * diff/1000;
+	  		pos[i] += 3 * v[i] * diff/1000;
+	  	}
+		  socket.emit('send_to', 
+			  {
+			  	message: 'accelerate data',
+			  	room_id: id,
+			  	x: pos[0],
+			  	y: pos[1],
+			  	z: pos[2]
+			  }
+		  );
+		  time_prev = time_now;
+	  }, Math.random()*80+100);
+  }
+
+  var pos = [300,200,0];
+  var v = [0,0,0];
+
+  var time_now;
+  var time_prev;
+
+</script>

@@ -3,19 +3,5 @@ extends layout
 block content
   h1= title
     
-  form(action='/create', id='create_room_form', method='get')
-    input(type='submit', value='Create', id='create_btn')
-
-  form(action='/join', id='join_room_form', method='get')
-    input(type='text', name='room_id', id='room_id_text', placeholder="12345")
-    input(type='submit', value='Join', id='join_btn')
-
-  script(type='text/javascript').
-    $(document).ready(function() {
-      $("#create_btn").click(function() {
-        console.log("Create New Room");
-      });
-      $("#join_btn").click(function() {
-        console.log("Join to existed room");
-      });
-    });
+  div(id="canvas_div")
+    script(src='/javascripts/game.js')
